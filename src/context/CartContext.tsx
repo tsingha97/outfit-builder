@@ -1,5 +1,5 @@
-'use client';
-import { createContext, useState, ReactNode } from 'react';
+"use client";
+import { createContext, useState, ReactNode, useContext } from "react";
 
 interface CanvasItem {
   id: string;
@@ -18,11 +18,15 @@ export const CartContext = createContext<CartContextType>({
   addToCart: () => {},
 });
 
+export function useCart() {
+  return useContext(CartContext);
+}
+
 export function CartProvider({ children }: { children: ReactNode }) {
   const [cart, setCart] = useState<CanvasItem[][]>([]);
 
   const addToCart = (items: CanvasItem[]) => {
-    setCart(prev => [...prev, items]);
+    setCart((prev) => [...prev, items]);
   };
 
   return (
